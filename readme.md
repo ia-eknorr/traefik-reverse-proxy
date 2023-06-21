@@ -8,7 +8,7 @@ Bring up the Traefik Reverse Proxy:
 
 ```bash
   cd /path/to/local/folder
-  docker compose up -d
+  docker compose -f docker-compose.yml -p proxy up -d
 ```
 
 Bring down and stop the Reverse Proxy:
