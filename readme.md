@@ -19,6 +19,7 @@ Local reverse proxy instance for use with docker and other dev stacks. Functiona
     ```
 
 > :memo: **_Note_**: It is recommended that `path/to/project` mentioned below is separate from active projects, in `projects/infrastructure/traefik-proxy`.
+
 ## How to stop use
 
 1. Spin down and stop the Reverse Proxy:
