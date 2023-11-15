@@ -8,7 +8,7 @@ Local reverse proxy instance for use with docker and other dev stacks. Functiona
 
     ```bash
     cd /path/to/project
-    git clone https://inductive-git.ia.local/dev-saleseng/demo-project-dev.git .
+    git clone https://github.com/ia-eknorr/traefik-reverse-proxy.git .
     ```
 
 2. Spin up the Traefik Reverse Proxy:
@@ -18,7 +18,7 @@ Local reverse proxy instance for use with docker and other dev stacks. Functiona
     docker-compose -f docker-compose.yml -p proxy up -d
     ```
 
-> :memo: **_Note_**: It is recommended that `path/to/project` mentioned below is separate from active projects, in `projects/infrastructure/traefik-proxy`.
+> :memo: **_Note_**: It is recommended that `path/to/project` mentioned below is separate from active projects, in `projects/utilities/traefik-proxy`.
 
 ## How to stop use
 
