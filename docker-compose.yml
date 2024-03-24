@@ -29,18 +29,13 @@ services:
       - "80:80"
       - "443:443"
     networks:
-      - proxy
-      # - internal
+      - default
     labels:
       - "traefik.enable=true"
       - "traefik.hostname=proxy"
       - "traefik.http.routers.proxy.service=api@internal"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-
 networks:
-  proxy:
-    external: true # this may not actually be necessary, I would suggest testing with/without this
-  # internal:
-  #   name: internal
-  #   external: true
+  default:
+    name: proxy
