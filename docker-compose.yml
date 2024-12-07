@@ -3,7 +3,7 @@
 #
 # ===Usage===
 # Bring up the Traefik Reverse Proxy:
-#   docker compose -f stack-proxy.yml -p proxy up -d
+#   docker compose -f docker-compose.yml -p proxy up -d
 #
 # Bring down and stop the Reverse Proxy:
 #   docker compose down
