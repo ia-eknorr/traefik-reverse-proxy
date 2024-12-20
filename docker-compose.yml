@@ -3,7 +3,7 @@
 #
 # ===Usage===
 # Bring up the Traefik Reverse Proxy:
-#   docker compose -f stack-proxy.yml -p proxy up -d
+#   docker compose up -d
 #
 # Bring down and stop the Reverse Proxy:
 #   docker compose down
@@ -24,12 +24,12 @@ services:
                     .Name 
               }}.localtest.me`)
       TRAEFIK_PROVIDERS_DOCKER_ALLOWEMPTYSERVICES: "true"
-      TRAEFIK_PROVIDERS_DOCKER_NETWORK: default
+      TRAEFIK_PROVIDERS_DOCKER_NETWORK: proxy
     ports:
       - "80:80"
       - "443:443"
     networks:
-      - default
+      - proxy
     labels:
       - "traefik.enable=true"
       - "traefik.hostname=proxy"
@@ -37,5 +37,4 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
 networks:
-  default:
-    name: proxy
+  proxy:
