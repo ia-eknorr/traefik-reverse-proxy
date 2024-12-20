@@ -38,4 +38,4 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
 networks:
   proxy:
-    external: true
+    name: proxy
