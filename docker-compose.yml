@@ -1,30 +1,22 @@
-### Global Reverse Proxy Stack
-# NOTE: Binds to Port 80 on your host, must be free in order to work!
-#
-# ===Usage===
-# Bring up the Traefik Reverse Proxy:
-#   docker compose up -d
-#
-# Bring down and stop the Reverse Proxy:
-#   docker compose down
 ---
 services:
   proxy:
-    image: traefik:2.10
+    image: traefik:3.4.1
     container_name: proxy
     restart: always
-    environment:  # https://docs.traefik.io/reference/static-configuration/env/
-      TRAEFIK_ENTRYPOINTS_WEB_ADDRESS: :80
-      TRAEFIK_API_DASHBOARD: "true"
-      TRAEFIK_PROVIDERS_DOCKER: "true"
-      TRAEFIK_PROVIDERS_DOCKER_EXPOSEDBYDEFAULT: "false"
-      TRAEFIK_PROVIDERS_DOCKER_DEFAULTRULE: >
-        Host(`{{ or (index .Labels "traefik.hostname")
-                    (index .Labels "com.docker.compose.service")
-                    .Name 
-              }}.localtest.me`)
-      TRAEFIK_PROVIDERS_DOCKER_ALLOWEMPTYSERVICES: "true"
-      TRAEFIK_PROVIDERS_DOCKER_NETWORK: proxy
+    environment:
+      - TRAEFIK_ENTRYPOINTS_WEB_ADDRESS=:80
+      - TRAEFIK_API_DASHBOARD=true
+      - TRAEFIK_PROVIDERS_DOCKER=true
+      - TRAEFIK_PROVIDERS_DOCKER_EXPOSEDBYDEFAULT=false
+      - TRAEFIK_PROVIDERS_DOCKER_DEFAULTRULE=Host(`{{ or (index .Labels "traefik.hostname") (index .Labels "com.docker.compose.service") .Name }}.localtest.me`)
+      - TRAEFIK_PROVIDERS_DOCKER_NETWORK=proxy
+      - TRAEFIK_ENTRYPOINTS_WEB_HTTP_REDIRECTIONS_ENTRYPOINT_TO=web
+      - TRAEFIK_API_DISABLEDASHBOARDAD=true
+      - TRAEFIK_GLOBAL_SENDANONYMOUSUSAGE=false
+      - TRAEFIK_GLOBAL_CHECKNEWVERSION=false
+      # Enable logs
+      - TRAEFIK_LOG_LEVEL=DEBUG
     ports:
       - "80:80"
       - "443:443"
@@ -36,6 +28,7 @@ services:
       - "traefik.http.routers.proxy.service=api@internal"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
+
 networks:
   proxy:
     name: proxy
