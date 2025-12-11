@@ -1,22 +1,23 @@
 ---
 services:
   proxy:
-    image: traefik:3.4.1
+    image: traefik:3.6.4
     container_name: proxy
     restart: always
     environment:
-      - TRAEFIK_ENTRYPOINTS_WEB_ADDRESS=:80
-      - TRAEFIK_API_DASHBOARD=true
-      - TRAEFIK_PROVIDERS_DOCKER=true
-      - TRAEFIK_PROVIDERS_DOCKER_EXPOSEDBYDEFAULT=false
-      - TRAEFIK_PROVIDERS_DOCKER_DEFAULTRULE=Host(`{{ or (index .Labels "traefik.hostname") (index .Labels "com.docker.compose.service") .Name }}.localtest.me`)
-      - TRAEFIK_PROVIDERS_DOCKER_NETWORK=proxy
-      - TRAEFIK_ENTRYPOINTS_WEB_HTTP_REDIRECTIONS_ENTRYPOINT_TO=web
-      - TRAEFIK_API_DISABLEDASHBOARDAD=true
-      - TRAEFIK_GLOBAL_SENDANONYMOUSUSAGE=false
-      - TRAEFIK_GLOBAL_CHECKNEWVERSION=false
-      # Enable logs
-      - TRAEFIK_LOG_LEVEL=DEBUG
+      TRAEFIK_ENTRYPOINTS_WEB_ADDRESS: :80
+      TRAEFIK_API_DASHBOARD: "true"
+      TRAEFIK_PROVIDERS_DOCKER: "true"
+      TRAEFIK_PROVIDERS_DOCKER_EXPOSEDBYDEFAULT: "false"
+      TRAEFIK_PROVIDERS_DOCKER_DEFAULTRULE: >
+        Host(`{{ or (index .Labels "traefik.hostname")
+                    (index .Labels "com.docker.compose.service")
+                    .Name
+              }}.localtest.me`)
+      TRAEFIK_ENTRYPOINTS_WEB_HTTP_ENCODEDCHARACTERS_ALLOWENCODEDSLASH: "true"
+      TRAEFIK_ENTRYPOINTS_WEBSECURE_HTTP_ENCODEDCHARACTERS_ALLOWENCODEDSLASH: "true"
+      TRAEFIK_PROVIDERS_DOCKER_ALLOWEMPTYSERVICES: "true"
+      TRAEFIK_PROVIDERS_DOCKER_NETWORK: proxy
     ports:
       - "80:80"
       - "443:443"
