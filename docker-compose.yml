@@ -1,7 +1,7 @@
 ---
 services:
   proxy:
-    image: traefik:3.6.4
+    image: traefik:v3.7.1
     container_name: proxy
     restart: always
     environment:
